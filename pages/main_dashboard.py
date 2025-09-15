@@ -2,7 +2,66 @@ import streamlit as st
 import subprocess
 import os
 
-st.set_page_config(page_title="Martingale Strategy Hub", page_icon="🎰", layout="wide")
+st.set_page_config(
+    page_title="Martingale Strategy Hub", 
+    page_icon="🎰", 
+    layout="wide",
+    initial_sidebar_state="expanded"
+)
+
+# Initialize navigation state
+if 'current_game' not in st.session_state:
+    st.session_state.current_game = "Dashboard"
+
+# Sidebar navigation
+with st.sidebar:
+    st.title("🎰 Martingale Hub")
+    st.write("---")
+    
+    # Game selection
+    games = {
+        "📊 Dashboard": "Dashboard",
+        "🪙 Coin Flip": "Coin Flip",
+        "🎲 Roulette": "Roulette", 
+        "📈 Fibonacci": "Fibonacci"
+    }
+    
+    selected_game = st.selectbox(
+        "🎮 Selecciona un Juego:",
+        options=list(games.keys()),
+        index=list(games.values()).index(st.session_state.current_game),
+        key="game_selector"
+    )
+    
+    new_game = games[selected_game]
+    
+    # Handle navigation to other games
+    if new_game != st.session_state.current_game:
+        if new_game == "Coin Flip":
+            st.switch_page("coin_flip_martingale.py")
+        elif new_game == "Roulette":
+            st.switch_page("martingale_bot.py")
+        elif new_game == "Fibonacci":
+            st.switch_page("fibonacci_bot.py")
+        # If Dashboard is selected, stay on current page
+    
+    st.session_state.current_game = new_game
+    
+    st.write("---")
+    
+    # Dashboard info
+    st.write("📊 **Dashboard Overview**")
+    st.write("Aprende sobre las estrategias de apuestas progresivas y sus riesgos.")
+    
+    st.write("---")
+    
+    # Navigation instructions
+    st.info("💡 **Navegación Rápida**\n\nUsa el menú desplegable arriba para cambiar entre juegos.")
+    
+    st.write("---")
+    st.write("**⚠️ Educacional Solamente**")
+    st.write("Estos juegos demuestran por qué las estrategias progresivas fallan.")
+
 st.title("🎰 Martingale Strategy Educational Hub")
 
 st.write("""

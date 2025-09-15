@@ -4,8 +4,82 @@ import os
 import time
 import pandas as pd
 
-st.set_page_config(page_title="Roulette Bot", page_icon="🎰")
-st.title("🎰 Roulette Bot - Fibonacci Strategy")
+st.set_page_config(
+    page_title="Fibonacci Strategy Hub", 
+    page_icon="🎰", 
+    layout="wide",
+    initial_sidebar_state="expanded"
+)
+
+# Initialize navigation state
+if 'current_game' not in st.session_state:
+    st.session_state.current_game = "Fibonacci"
+
+# Sidebar navigation
+with st.sidebar:
+    st.title("🎰 Martingale Hub")
+    st.write("---")
+    
+    # Game selection
+    games = {
+        "📊 Dashboard": "Dashboard",
+        "🪙 Coin Flip": "Coin Flip",
+        "🎲 Roulette": "Roulette", 
+        "📈 Fibonacci": "Fibonacci"
+    }
+    
+    selected_game = st.selectbox(
+        "🎮 Selecciona un Juego:",
+        options=list(games.keys()),
+        index=list(games.values()).index(st.session_state.current_game),
+        key="game_selector"
+    )
+    
+    new_game = games[selected_game]
+    
+    # Handle navigation to other games
+    if new_game != st.session_state.current_game:
+        if new_game == "Dashboard":
+            st.switch_page("main_dashboard.py")
+        elif new_game == "Coin Flip":
+            st.switch_page("coin_flip_martingale.py")
+        elif new_game == "Roulette":
+            st.switch_page("martingale_bot.py")
+        # If Fibonacci is selected, stay on current page
+    
+    st.session_state.current_game = new_game
+    
+    st.write("---")
+    
+    # Quick game info for Fibonacci
+    st.write("📈 **Fibonacci Strategy**")
+    if 'fibo_seq' in st.session_state and 'fibo_pos' in st.session_state:
+        current_fib_bet = st.session_state.fibo_seq[st.session_state.fibo_pos] if st.session_state.fibo_seq else 1
+        st.write(f"💰 Balance: ${st.session_state.get('balance', 20)}")
+        st.write(f"🎯 Bet: ${current_fib_bet}")
+        st.write(f"📍 Position: {st.session_state.get('fibo_pos', 0)}")
+    else:
+        st.write(f"💰 Balance: $20")
+        st.write(f"🎯 Bet: $1")
+        st.write(f"📍 Position: 0")
+    
+    if st.button("🔄 Reset Fibonacci Game"):
+        st.session_state.balance = 20
+        st.session_state.fibo_seq = [1, 1]
+        st.session_state.fibo_pos = 0
+        st.session_state.history = []
+        st.success("Fibonacci game reset!")
+    
+    st.write("---")
+    
+    # Navigation instructions
+    st.info("💡 **Navegación Rápida**\n\nUsa el menú desplegable arriba para cambiar entre juegos sin perder tu progreso.")
+    
+    st.write("---")
+    st.write("**⚠️ Educacional Solamente**")
+    st.write("Estos juegos demuestran por qué las estrategias progresivas fallan.")
+
+st.title("🎰 Fibonacci Strategy - Martingale Hub")
 
 # Explanation of Fibonacci Strategy
 with st.expander("📚 How does the Fibonacci Strategy work?"):

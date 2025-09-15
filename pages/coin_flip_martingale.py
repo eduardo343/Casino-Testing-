@@ -4,8 +4,83 @@ import time
 import pandas as pd
 import plotly.graph_objects as go
 
-st.set_page_config(page_title="Coin Flip Martingale", page_icon="🪙")
-st.title("🪙 Coin Flip Martingale Strategy")
+st.set_page_config(
+    page_title="Coin Flip Martingale Hub", 
+    page_icon="🪙", 
+    layout="wide",
+    initial_sidebar_state="expanded"
+)
+
+# Initialize navigation state
+if 'current_game' not in st.session_state:
+    st.session_state.current_game = "Coin Flip"
+
+# Sidebar navigation
+with st.sidebar:
+    st.title("🎰 Martingale Hub")
+    st.write("---")
+    
+    # Game selection
+    games = {
+        "📊 Dashboard": "Dashboard",
+        "🪙 Coin Flip": "Coin Flip",
+        "🎲 Roulette": "Roulette", 
+        "📈 Fibonacci": "Fibonacci"
+    }
+    
+    selected_game = st.selectbox(
+        "🎮 Selecciona un Juego:",
+        options=list(games.keys()),
+        index=list(games.values()).index(st.session_state.current_game),
+        key="game_selector"
+    )
+    
+    new_game = games[selected_game]
+    
+    # Handle navigation to other games
+    if new_game != st.session_state.current_game:
+        if new_game == "Dashboard":
+            st.switch_page("main_dashboard.py")
+        elif new_game == "Roulette":
+            st.switch_page("martingale_bot.py")
+        elif new_game == "Fibonacci":
+            st.switch_page("fibonacci_bot.py")
+        # If Coin Flip is selected, stay on current page
+    
+    st.session_state.current_game = new_game
+    
+    st.write("---")
+    
+    # Quick game info for Coin Flip
+    st.write("🪙 **Coin Flip Martingale**")
+    coin_balance = st.session_state.get('balance', 500)
+    coin_current_bet = st.session_state.get('current_bet', 5)
+    coin_consecutive_losses = st.session_state.get('consecutive_losses', 0)
+    
+    st.write(f"💰 Balance: ${coin_balance}")
+    st.write(f"🎯 Bet: ${coin_current_bet}")
+    st.write(f"📉 Streak: {coin_consecutive_losses}")
+    
+    if st.button("🔄 Reset Coin Game"):
+        st.session_state.balance = 500
+        st.session_state.current_bet = st.session_state.get('base_bet', 5)
+        st.session_state.consecutive_losses = 0
+        st.session_state.history = []
+        st.session_state.total_wagered = 0
+        st.session_state.peak_balance = 500
+        st.session_state.total_flips = 0
+        st.success("Coin game reset!")
+    
+    st.write("---")
+    
+    # Navigation instructions
+    st.info("💡 **Navegación Rápida**\n\nUsa el menú desplegable arriba para cambiar entre juegos sin perder tu progreso.")
+    
+    st.write("---")
+    st.write("**⚠️ Educacional Solamente**")
+    st.write("Estos juegos demuestran por qué las estrategias progresivas fallan.")
+
+st.title("🪙 Coin Flip Martingale - Martingale Hub")
 
 # Educational content
 with st.expander("📚 Pure Martingale Strategy Explained"):

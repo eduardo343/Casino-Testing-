@@ -99,7 +99,20 @@ deactivate
 
 ## 🎮 Usage
 
-### Method 1: Start with Main Dashboard (Recommended)
+### Method 1: Unified App with Navigation Menu (BEST OPTION!) ⭐
+
+```bash
+streamlit run martingale_unified.py
+```
+
+This opens a **single integrated application** where you can:
+- Switch between games using the sidebar menu
+- No need to open separate browser tabs
+- All games in one place with individual game states
+- Quick reset buttons for each game
+- Seamless navigation between Dashboard, Coin Flip, Roulette, and Fibonacci
+
+### Method 2: Start with Main Dashboard (Overview Only)
 
 ```bash
 streamlit run main_dashboard.py
@@ -108,7 +121,7 @@ streamlit run main_dashboard.py
 This opens a comprehensive hub where you can:
 - Learn about martingale strategy
 - Compare different implementations
-- Launch specific simulations
+- Launch specific simulations (opens separate apps)
 - Access educational materials
 
 ### Method 2: Run Individual Simulations
@@ -152,12 +165,14 @@ streamlit run fibonacci_bot.py
 
 ```
 bot-test/
-├── README.md                     # This file
-├── main_dashboard.py             # Main navigation hub
-├── coin_flip_martingale.py       # Pure 50/50 martingale demo
-├── martingale_bot.py             # Roulette martingale simulation
-├── fibonacci_bot.py              # Fibonacci strategy alternative
+├── README.md                     # This file  
+├── martingale_unified.py         # ⭐ UNIFIED APP - All games in one! 
+├── main_dashboard.py             # Overview dashboard (launches separate apps)
+├── coin_flip_martingale.py       # Standalone pure 50/50 martingale demo
+├── martingale_bot.py             # Standalone roulette martingale simulation
+├── fibonacci_bot.py              # Standalone Fibonacci strategy alternative
 ├── martingale_explanation.md     # Detailed mathematical explanation
+├── QUICKSTART.md                 # 3-minute setup guide
 └── roulette.gif                  # Animation file (optional)
 ```
 

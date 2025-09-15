@@ -9,13 +9,23 @@ Get the Martingale Strategy Educational Hub running in 3 minutes!
 pip install streamlit pandas plotly
 ```
 
-### 2. Launch the Main Dashboard
+### 2A. Launch the Unified App (BEST!) ⭐
 ```bash
-streamlit run main_dashboard.py
+streamlit run martingale_unified.py
+```
+
+### 2B. Launch Individual Games (Now with Navigation!)
+```bash
+streamlit run coin_flip_martingale.py     # Coin flip with menu
+streamlit run martingale_bot.py           # Roulette with menu  
+streamlit run fibonacci_bot.py            # Fibonacci with menu
+streamlit run main_dashboard.py           # Dashboard with menu
 ```
 
 ### 3. Start Learning!
 Your browser will open automatically to `http://localhost:8501`
+
+**🎉 NEW FEATURE**: All apps now have navigation menus in the sidebar! Switch between games without opening new tabs.
 
 ## 🎯 What to Try First
 

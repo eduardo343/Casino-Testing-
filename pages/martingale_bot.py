@@ -4,8 +4,82 @@ import time
 import pandas as pd
 import plotly.graph_objects as go
 
-st.set_page_config(page_title="Martingale Roulette Bot", page_icon="🎰")
-st.title("🎰 Roulette Bot - Martingale Strategy")
+st.set_page_config(
+    page_title="Martingale Roulette Hub", 
+    page_icon="🎰", 
+    layout="wide",
+    initial_sidebar_state="expanded"
+)
+
+# Initialize navigation state
+if 'current_game' not in st.session_state:
+    st.session_state.current_game = "Roulette"
+
+# Sidebar navigation
+with st.sidebar:
+    st.title("🎰 Martingale Hub")
+    st.write("---")
+    
+    # Game selection
+    games = {
+        "📊 Dashboard": "Dashboard",
+        "🪙 Coin Flip": "Coin Flip",
+        "🎲 Roulette": "Roulette", 
+        "📈 Fibonacci": "Fibonacci"
+    }
+    
+    selected_game = st.selectbox(
+        "🎮 Selecciona un Juego:",
+        options=list(games.keys()),
+        index=list(games.values()).index(st.session_state.current_game),
+        key="game_selector"
+    )
+    
+    new_game = games[selected_game]
+    
+    # Handle navigation to other games
+    if new_game != st.session_state.current_game:
+        if new_game == "Dashboard":
+            st.switch_page("main_dashboard.py")
+        elif new_game == "Coin Flip":
+            st.switch_page("coin_flip_martingale.py")
+        elif new_game == "Fibonacci":
+            st.switch_page("fibonacci_bot.py")
+        # If Roulette is selected, stay on current page
+    
+    st.session_state.current_game = new_game
+    
+    st.write("---")
+    
+    # Quick game info for Roulette
+    st.write("🎲 **Roulette Martingale**")
+    roulette_balance = st.session_state.get('balance', 1000)
+    roulette_current_bet = st.session_state.get('current_bet', 10)
+    roulette_consecutive_losses = st.session_state.get('consecutive_losses', 0)
+    
+    st.write(f"💰 Balance: ${roulette_balance}")
+    st.write(f"🎯 Bet: ${roulette_current_bet}")
+    st.write(f"📉 Streak: {roulette_consecutive_losses}")
+    
+    if st.button("🔄 Reset Roulette Game"):
+        st.session_state.balance = 1000
+        st.session_state.current_bet = st.session_state.get('base_bet', 10)
+        st.session_state.consecutive_losses = 0
+        st.session_state.history = []
+        st.session_state.total_wagered = 0
+        st.session_state.peak_balance = 1000
+        st.success("Roulette game reset!")
+    
+    st.write("---")
+    
+    # Navigation instructions
+    st.info("💡 **Navegación Rápida**\n\nUsa el menú desplegable arriba para cambiar entre juegos sin perder tu progreso.")
+    
+    st.write("---")
+    st.write("**⚠️ Educacional Solamente**")
+    st.write("Estos juegos demuestran por qué las estrategias progresivas fallan.")
+
+st.title("🎰 Roulette Martingale - Martingale Hub")
 
 # Educational content
 with st.expander("📚 How does the Martingale Strategy work?"):
