@@ -38,11 +38,11 @@ with st.sidebar:
     # Handle navigation to other games
     if new_game != st.session_state.current_game:
         if new_game == "Coin Flip":
-            st.switch_page("coin_flip_martingale.py")
+            st.switch_page("pages/coin_flip_martingale.py")
         elif new_game == "Roulette":
-            st.switch_page("martingale_bot.py")
+            st.switch_page("pages/martingale_bot.py")
         elif new_game == "Fibonacci":
-            st.switch_page("fibonacci_bot.py")
+            st.switch_page("../fibonacci_bot.py")
         # If Dashboard is selected, stay on current page
     
     st.session_state.current_game = new_game

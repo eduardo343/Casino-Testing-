@@ -99,7 +99,7 @@ deactivate
 
 ## 🎮 Usage
 
-### Method 1: Unified App with Navigation Menu (BEST OPTION!) ⭐
+### Method 1: Unified App with Navigation Menu (RECOMMENDED!) ⭐
 
 ```bash
 streamlit run martingale_unified.py
@@ -112,19 +112,17 @@ This opens a **single integrated application** where you can:
 - Quick reset buttons for each game
 - Seamless navigation between Dashboard, Coin Flip, Roulette, and Fibonacci
 
-### Method 2: Start with Main Dashboard (Overview Only)
+### Method 2: Run Individual Games (Simple)
 
 ```bash
-streamlit run main_dashboard.py
+# Individual games (basic versions)
+streamlit run fibonacci_bot.py            # Fibonacci strategy only
+streamlit run main_dashboard.py           # Educational overview
 ```
 
-This opens a comprehensive hub where you can:
-- Learn about martingale strategy
-- Compare different implementations
-- Launch specific simulations (opens separate apps)
-- Access educational materials
+These are **standalone versions** without navigation menus.
 
-### Method 2: Run Individual Simulations
+### Method 3: Multi-page System (Advanced)
 
 #### 🪙 Coin Flip Martingale (Best for beginners)
 ```bash
@@ -166,14 +164,16 @@ streamlit run fibonacci_bot.py
 ```
 bot-test/
 ├── README.md                     # This file  
-├── martingale_unified.py         # ⭐ UNIFIED APP - All games in one! 
-├── main_dashboard.py             # Overview dashboard (launches separate apps)
-├── coin_flip_martingale.py       # Standalone pure 50/50 martingale demo
-├── martingale_bot.py             # Standalone roulette martingale simulation
-├── fibonacci_bot.py              # Standalone Fibonacci strategy alternative
+├── martingale_unified.py         # ⭐ RECOMMENDED - All games in one app!
+├── fibonacci_bot.py              # Standalone Fibonacci strategy
 ├── martingale_explanation.md     # Detailed mathematical explanation
 ├── QUICKSTART.md                 # 3-minute setup guide
-└── roulette.gif                  # Animation file (optional)
+├── roulette.gif                  # Animation file (optional)
+└── pages/                        # Multi-page system (advanced/experimental)
+    ├── README.md                 # Instructions for multi-page system
+    ├── main_dashboard.py
+    ├── coin_flip_martingale.py
+    └── martingale_bot.py
 ```
 
 ## 🎯 Examples

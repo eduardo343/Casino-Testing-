@@ -70,22 +70,34 @@ with st.sidebar:
     st.title("🎰 Martingale Hub")
     st.write("---")
     
-    # Game selection
-    games = {
-        "📊 Dashboard": "Dashboard",
-        "🪙 Coin Flip": "Coin Flip",
-        "🎲 Roulette": "Roulette", 
-        "📈 Fibonacci": "Fibonacci"
+    # Game selection buttons (no selectbox)
+    st.write("🎮 **Selecciona un Juego:**")
+    
+    # Show current game
+    game_icons = {
+        "Dashboard": "📊",
+        "Coin Flip": "🪙", 
+        "Roulette": "🎲",
+        "Fibonacci": "📈"
     }
+    current_icon = game_icons.get(st.session_state.current_game, "🎰")
+    st.info(f"🔻 **Juego Actual**: {current_icon} {st.session_state.current_game}")
     
-    selected_game = st.selectbox(
-        "🎮 Selecciona un Juego:",
-        options=list(games.keys()),
-        index=list(games.values()).index(st.session_state.current_game),
-        key="game_selector"
-    )
-    
-    st.session_state.current_game = games[selected_game]
+    col1, col2 = st.columns(2)
+    with col1:
+        if st.button("📊 Dashboard", key="nav_dashboard", use_container_width=True):
+            st.session_state.current_game = "Dashboard"
+            st.rerun()
+        if st.button("🪙 Coin Flip", key="nav_coin", use_container_width=True):
+            st.session_state.current_game = "Coin Flip"
+            st.rerun()
+    with col2:
+        if st.button("🎲 Roulette", key="nav_roulette", use_container_width=True):
+            st.session_state.current_game = "Roulette"
+            st.rerun()
+        if st.button("📈 Fibonacci", key="nav_fib", use_container_width=True):
+            st.session_state.current_game = "Fibonacci"
+            st.rerun()
     
     st.write("---")
     
@@ -666,8 +678,13 @@ elif st.session_state.current_game == "Fibonacci":
         if current_bet > st.session_state.fib_balance:
             st.error("🚫 No tienes suficiente balance para esta apuesta.")
         else:
-            with st.spinner("Girando la rueda..."):
-                time.sleep(2)
+            # Animation
+            if os.path.exists("roulette.gif"):
+                st.image("roulette.gif", use_container_width=True)
+                time.sleep(3)
+            else:
+                with st.spinner("Girando la rueda..."):
+                    time.sleep(2)
             
             # Realistic probabilities
             result = random.choices(
